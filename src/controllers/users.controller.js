@@ -23,19 +23,7 @@ class UserController {
     reply.status(201).json(newUser);
   }
 
-  async update({ user, body }, reply) {
-    const { name, email, role, bio, experiences, skills, applications } = body;
-
-    const userData = {
-      name,
-      email,
-      role,
-      bio,
-      experiences,
-      skills,
-      applications
-    };
-
+  async update({ user, userData }, reply) {
     const updatedUser = await user.overwrite(userData);
 
     reply.status(200).json(updatedUser);
