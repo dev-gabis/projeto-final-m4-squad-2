@@ -1,5 +1,5 @@
 import express from "express";
-import userRoutes from "./routes/UserRoutes.js";
+import userRoutes from "./routes/users.routes.js";
 import * as dotenv from 'dotenv'
 import mongoose from "mongoose";
 // import sequelize from "./database/config.js";

@@ -1,4 +1,4 @@
-import User from "../models/UserModel.js";
+import User from "../models/user.model.js";
 
 class UserController {
   async index(request, reply) {
@@ -21,6 +21,12 @@ class UserController {
       skills,
       applications
     };
+
+    const emailExists = await User.findOne({ email });
+
+    if (emailExists) {
+      return reply.status(409).json({ error: "Email is already being used" });
+    }
 
     const newUser = new User(userData);
     await newUser.save();
