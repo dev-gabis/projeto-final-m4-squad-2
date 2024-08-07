@@ -1,4 +1,4 @@
-import { model, Schema } from "mongoose";
+import { model, Schema, ObjectId } from "mongoose";
 
 const userSchema = new Schema({
   name: {
@@ -14,16 +14,24 @@ const userSchema = new Schema({
     required: true,
     enums: ["jovem", "mentor"]
   },
-  experience: {
+  bio: {
+    type: String,
+    default: ''
+  },
+  experiences: {
     type: [String],
     default: []
   },
   skills: {
     type: [String],
     default: []
+  },
+  applications: {
+    type: [ObjectId],
+    default: []
   }
 
 });
 
-const UserModel = model("User", userSchema);
-export default UserModel;
+const User = model("User", userSchema);
+export default User;
