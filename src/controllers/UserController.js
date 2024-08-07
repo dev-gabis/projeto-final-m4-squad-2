@@ -28,12 +28,31 @@ class UserController {
     reply.status(201).json(newUser);
   }
 
-  update() {
+  async update(request, reply) {
+    const { id } = request.params;
+    const { name, email, role, bio, experiences, skills, applications } = request.body;
 
+    const userData = {
+      name,
+      email,
+      role,
+      bio,
+      experiences,
+      skills,
+      applications
+    };
+
+    const updatedUser = await User.findByIdAndUpdate(id, userData, { new: true });
+
+    reply.status(200).json(updatedUser);
   }
 
-  delete() {
+  async delete(request, reply) {
+    const { id } = request.params;
 
+    await User.findByIdAndDelete(id);
+
+    reply.sendStatus(202);
   }
 }
 
