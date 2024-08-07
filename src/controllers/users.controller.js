@@ -1,12 +1,12 @@
 import User from "../models/user.model.js";
 
 class UserController {
-  async index(request, reply) {
+  async index(_, reply) {
+    const users = await User.find({});
+    reply.json(users);
   }
 
-  async show(request, reply) {
-    const { id } = request.params;
-    const user = await User.findById(id);
+  async show({ user }, reply) {
     reply.json(user);
   }
 
@@ -34,9 +34,8 @@ class UserController {
     reply.status(201).json(newUser);
   }
 
-  async update(request, reply) {
-    const { id } = request.params;
-    const { name, email, role, bio, experiences, skills, applications } = request.body;
+  async update({ user, body }, reply) {
+    const { name, email, role, bio, experiences, skills, applications } = body;
 
     const userData = {
       name,
@@ -48,16 +47,13 @@ class UserController {
       applications
     };
 
-    const updatedUser = await User.findByIdAndUpdate(id, userData, { new: true });
+    const updatedUser = await user.overwrite(userData);
 
     reply.status(200).json(updatedUser);
   }
 
-  async delete(request, reply) {
-    const { id } = request.params;
-
-    await User.findByIdAndDelete(id);
-
+  async delete({ user }, reply) {
+    await User.findByIdAndDelete(user.id);
     reply.sendStatus(202);
   }
 }
