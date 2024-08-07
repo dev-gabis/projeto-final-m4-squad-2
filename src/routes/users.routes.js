@@ -1,23 +1,27 @@
 import { Router } from "express"
-import UserController from "../controllers/users.controller.js";
 import 'express-async-errors'
-import usersPrehandlers from "../prehandlers/users.prehandlers.js";
+import UserController from "../controllers/users.controller.js";
+import UsersPrehandlers from "../prehandlers/users.prehandlers.js";
 
 const userRoutes = new Router();
 
 //REST pattern
-userRoutes.get("/", UserController.index);
-userRoutes.get("/:id",
-  usersPrehandlers.userNotExists,
+userRoutes.get("/users/", UserController.index);
+userRoutes.get("/users/:id",
+  UsersPrehandlers.userNotExists,
   UserController.show
 );
-userRoutes.post("/", UserController.store);
-userRoutes.put("/:id",
-  usersPrehandlers.userNotExists,
+userRoutes.post("/users/",
+  UsersPrehandlers.bodyIsValid,
+  UserController.store
+);
+userRoutes.put("/users/:id",
+  UsersPrehandlers.userNotExists,
+  UsersPrehandlers.bodyIsValid,
   UserController.update
 );
-userRoutes.delete("/:id",
-  usersPrehandlers.userNotExists,
+userRoutes.delete("/users/:id",
+  UsersPrehandlers.userNotExists,
   UserController.delete
 );
 

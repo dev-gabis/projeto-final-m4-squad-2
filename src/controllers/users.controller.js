@@ -10,25 +10,14 @@ class UserController {
     reply.json(user);
   }
 
-  async store(request, reply) {
-    const { name, email, role, bio, experiences, skills, applications } = request.body;
-    const userData = {
-      name,
-      email,
-      role,
-      bio,
-      experiences,
-      skills,
-      applications
-    };
-
+  async store({ newUser }, reply) {
+    const { email } = newUser;
     const emailExists = await User.findOne({ email });
 
     if (emailExists) {
       return reply.status(409).json({ error: "Email is already being used" });
     }
 
-    const newUser = new User(userData);
     await newUser.save();
 
     reply.status(201).json(newUser);
