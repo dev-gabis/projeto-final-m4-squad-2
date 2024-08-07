@@ -1,4 +1,4 @@
-import UserModel from "../models/UserModel.js";
+import User from "../models/UserModel.js";
 
 class UserController {
   async index(request, reply) {
@@ -6,12 +6,26 @@ class UserController {
 
   async show(request, reply) {
     const { id } = request.params;
-    const user = await UserModel.findById(id);
+    const user = await User.findById(id);
     reply.json(user);
   }
 
-  store() {
+  async store(request, reply) {
+    const { name, email, role, bio, experiences, skills, applications } = request.body;
+    const userData = {
+      name,
+      email,
+      role,
+      bio,
+      experiences,
+      skills,
+      applications
+    };
 
+    const newUser = new User(userData);
+    await newUser.save();
+
+    reply.status(201).json(newUser);
   }
 
   update() {
