@@ -35,6 +35,7 @@ class UsersPrehandlers {
       return reply.status(400).json({ error: err.message });
     }
 
+    request.userData = userData;
     request.newUser = newUser;
     next();
   }
