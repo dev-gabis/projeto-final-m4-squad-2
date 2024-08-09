@@ -3,10 +3,10 @@ import OpportunityController from "../controllers/OpportunityController";
 
 const opportunityRoutes = new Router();
 
-// userRoutes.get("/", UserController.index);
-opportunityRoutes.get("/:id", OpportunityController.show);
-opportunityRoutes.post("/", OpportunityController.store);
-opportunityRoutes.put("/:id", OpportunityController.update);
-opportunityRoutes.delete("/:id", OpportunityController.delete);
+opportunityRoutes.get("oppotunity/", OpportunityController.index);
+opportunityRoutes.get("oppotunity/:id", OpportunityController.show);
+opportunityRoutes.post("oppotunity/", OpportunityController.store);
+opportunityRoutes.put("oppotunity/:id", OpportunityController.update);
+opportunityRoutes.delete("oppotunity/:id", OpportunityController.delete);
 
 export default opportunityRoutes;

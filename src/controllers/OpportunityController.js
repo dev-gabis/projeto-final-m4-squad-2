@@ -1,40 +1,40 @@
 import OpportunityModel from "../models/";
 
 class OpportunityController {
-  async index(request, reply) {
+  async index(response) {
     const opportunities = await OpportunityModel.find();
-    reply.json(opportunities);
+    response.json(opportunities);
   }
 
-  async show(request, reply) {
+  async show(request, response) {
     const { id } = request.params;
     const opportunity = await OpportunityModel.findById(id);
-    reply.json(opportunity);
+    response.json(opportunity);
   }
 
-  async store(request, reply) {
+  async store(request, response) {
     const newOpportunity = new OpportunityModel(request.body);
     await newOpportunity.save();
-    reply.json(newOpportunity);
+    response.json(newOpportunity);
   }
 
-  async update(request, reply) {
+  async update(request, response) {
     const { id } = request.params;
     const updatedOpportunity = request.body; 
   
     try {
       const opportunity = await OpportunityModel.findByIdAndUpdate(id, updatedOpportunity, { new: true });
-      reply.json(opportunity);
+      response.json(opportunity);
     } catch (error) {
-      reply.status(500).json({ error: "Erro ao atualizar a oportunidade" });
+      response.status(500).json({ error: "Erro ao atualizar a oportunidade" });
     }
   }
   
 
-  async delete(request, reply) {
+  async delete(request, response) {
     const { id } = request.params;
     const opportunity = await OpportunityModel.findByIdAndDelete(id);
-    reply.json(opportunity);
+    response.json(opportunity);
   }
 }
 
