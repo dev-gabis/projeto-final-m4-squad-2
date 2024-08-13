@@ -2,6 +2,7 @@ import express from "express";
 import userRoutes from "./routes/users.routes.js";
 import * as dotenv from 'dotenv'
 import mongoose from "mongoose";
+import opportunityRoutes from "./routes/opportunity.routes.js";
 import enterpriseRoutes from "./routes/enterprise.routes.js";
 // import sequelize from "./database/config.js";
 
@@ -12,7 +13,11 @@ const app = express();
 app.use(express.json());
 
 app.use(userRoutes);
+
+app.use(opportunityRoutes);
+
 app.use(enterpriseRoutes);
+
 
 mongoose.connect(process.env.MONGODB_URI, {
   dbName: "projeto-final-m4"
