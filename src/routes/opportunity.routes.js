@@ -1,5 +1,5 @@
 import { Router } from "express"
-import OpportunityController from "../controllers/OpportunityController";
+import OpportunityController from "../controllers/opportunity.controller.js";
 
 const opportunityRoutes = new Router();
 
