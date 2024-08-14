@@ -1,6 +1,6 @@
-import { model, Schema } from "mongoose"
+import { model, Schema, ObjectId } from "mongoose"
 
-const mentoringsSchema = new Schema({
+const mentoringSchema = new Schema({
   mentor_id: {
     type: ObjectId,
     required: true
@@ -10,7 +10,7 @@ const mentoringsSchema = new Schema({
     required: true,
 
   },
-  mentorings_date: {
+  mentoring_date: {
     type: Date,
     required: true
   },
@@ -24,7 +24,5 @@ const mentoringsSchema = new Schema({
   },
 });
 
-const Mentorings = model("Mentoring", mentoringsSchema);
-export default Mentorings;
-
-
+const Mentoring = model("Mentoring", mentoringSchema);
+export default Mentoring;
