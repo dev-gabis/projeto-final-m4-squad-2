@@ -1,7 +1,7 @@
-import OpportunityModel from "../models/";
+import OpportunityModel from "../models/opportunity.model.js";
 
 class OpportunityController {
-  async index(response) {
+  async index(request, response) {
     const opportunities = await OpportunityModel.find();
     response.json(opportunities);
   }
@@ -20,8 +20,8 @@ class OpportunityController {
 
   async update(request, response) {
     const { id } = request.params;
-    const updatedOpportunity = request.body; 
-  
+    const updatedOpportunity = request.body;
+
     try {
       const opportunity = await OpportunityModel.findByIdAndUpdate(id, updatedOpportunity, { new: true });
       response.json(opportunity);
@@ -29,7 +29,7 @@ class OpportunityController {
       response.status(500).json({ error: "Erro ao atualizar a oportunidade" });
     }
   }
-  
+
 
   async delete(request, response) {
     const { id } = request.params;
