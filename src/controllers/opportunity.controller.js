@@ -1,7 +1,7 @@
 import OpportunityModel from "../models/opportunity.model.js";
 
 class OpportunityController {
-  async index(response) {
+  async index(request, response) {
     const opportunities = await OpportunityModel.find();
     response.json(opportunities);
   }
