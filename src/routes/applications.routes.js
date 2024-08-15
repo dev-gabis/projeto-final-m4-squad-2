@@ -5,23 +5,23 @@ import ApplicationsPrehandlers from '../prehandlers/aplications.prehandles.js';
 const applicationRoutes = new Router();
 
 // REST pattern
-applicationRoutes.get('/aplicacoes/', ApplicationController.index);
-applicationRoutes.get('/aplicacoes/:id',
+applicationRoutes.get('/application/', ApplicationController.index);
+applicationRoutes.get('/application/:id',
   ApplicationsPrehandlers.applicationNotExists,
   ApplicationController.show
 );
-applicationRoutes.post('/aplicacoes/',
+applicationRoutes.post('/application/',
   ApplicationsPrehandlers.bodyIsValid,
   ApplicationsPrehandlers.userExists, // Substituir jovemExists por userExists
   ApplicationController.store
 );
-applicationRoutes.put('/aplicacoes/:id',
+applicationRoutes.put('/application/:id',
   ApplicationsPrehandlers.applicationNotExists,
   ApplicationsPrehandlers.bodyIsValid,
   ApplicationsPrehandlers.userExists, // Substituir jovemExists por userExists
   ApplicationController.update
 );
-applicationRoutes.delete('/aplicacoes/:id',
+applicationRoutes.delete('/application/:id',
   ApplicationsPrehandlers.applicationNotExists,
   ApplicationController.delete
 );
