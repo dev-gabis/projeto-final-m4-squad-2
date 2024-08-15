@@ -16,9 +16,9 @@ class ApplicationsPrehandlers {
     }
 
     async bodyIsValid({ body }, reply, next) {
-        const { userId, status, dataAplicacao } = body;
+        const { userId, status, applicationDate } = body;
 
-        if (!userId || !status || !dataAplicacao) {
+        if (!userId || !status || !applicationDate) {
             return reply.status(400).json({ error: "Invalid application data" });
         }
 
