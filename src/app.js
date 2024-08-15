@@ -6,26 +6,34 @@ import opportunityRoutes from "./routes/opportunity.routes.js";
 import enterpriseRoutes from "./routes/enterprise.routes.js";
 import mentoringRoutes from "./routes/monitoring.routes.js";
 import applicationRoutes from "./routes/applications.routes.js"
+import feedbackRoutes from "./routes/feedback.routes.js";
 // import sequelize from "./database/config.js";
+import * as swaggerUi from 'swagger-ui-express'
+
+import { createRequire } from "module";
+const require = createRequire(import.meta.url);
 
 dotenv.config();
+
+const swaggerDocument = require("./swagger.json");
 
 const app = express();
 
 app.use(express.json());
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
 app.use(userRoutes);
 app.use(opportunityRoutes);
 app.use(enterpriseRoutes);
 app.use(mentoringRoutes);
 app.use(applicationRoutes);
+app.use(feedbackRoutes);
 
 mongoose.connect(process.env.MONGODB_URI, {
   dbName: "projeto-final-m4"
 });
 
-const PORT = 3000;
-app.listen(PORT, () => console.log("SERVER is running"));
+app.listen(process.env.PORT || 3000, () => console.log("SERVER is running"));
 // // Sincronizar o banco de dados
 // sequelize
 // 	.sync()

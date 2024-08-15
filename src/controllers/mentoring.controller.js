@@ -1,4 +1,4 @@
-import Mentoring from "../models/mentoring.models.js";
+import Mentoring from "../models/mentoring.model.js";
 
 class MentoringController {
   async index(_, response) {
