@@ -61,25 +61,7 @@ class ApplicationController {
     }
   }
 
-  async index(req, res) {
-    // implementação
-}
 
-async show(req, res) {
-    // implementação
-}
-
-async store(req, res) {
-    // implementação
-}
-
-async update(req, res) {
-    // implementação
-}
-
-async delete(req, res) {
-    // implementação
-}
 }
 
 
