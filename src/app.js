@@ -7,12 +7,19 @@ import enterpriseRoutes from "./routes/enterprise.routes.js";
 import mentoringRoutes from "./routes/monitoring.routes.js";
 import applicationRoutes from "./routes/applications.routes.js"
 // import sequelize from "./database/config.js";
+import * as swaggerUi from 'swagger-ui-express'
+
+import { createRequire } from "module";
+const require = createRequire(import.meta.url);
 
 dotenv.config();
+
+const swaggerDocument = require("./swagger.json");
 
 const app = express();
 
 app.use(express.json());
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
 app.use(userRoutes);
 app.use(opportunityRoutes);
