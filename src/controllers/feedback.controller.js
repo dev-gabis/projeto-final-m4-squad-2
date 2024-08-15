@@ -42,11 +42,7 @@ export const updateFeedback = async (req, res) => {
             { name, email, feedback, rating },
             { new: true }
         );
-        if (updatedFeedback) {
-            res.json(updateFeedback);
-        } else {
-            res.status(404).json({ error: "Feedback não encontrado" });
-        }
+        res.json(updatedFeedback);
     } catch (err) {
         res.status(500).json({ error: "Erro ao atualizar feedback" });
     }
