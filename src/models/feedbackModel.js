@@ -1,18 +1,28 @@
-const sqlite3 = require('sqlite3').verbose();
-const db = new sqlite3.Database(':memory:');
+import mongoose from "mongoose";
+const { Schema, model } = mongoose;
 
-db.serialize(() => {
-    db.run(`
-        CREATE TABLE Feedbacks (
-            id INTEGER PRIMARY KEY AUTOINCREMENT,
-            name TEXT NOT NULL,
-            email TEXT NOT NULL,
-            feedback TEXT NOT NULL,
-            rating INTEGER NOT NULL,
-            created_at DATABASE DEFAULT CURRENT_TIMESTAMP
-        )
-
-    `);
+const feedbackSchema = new Schema({
+  name: {
+    type: String,
+    required: true
+  },
+  email: {
+    type: String,
+    required: true
+  },
+  feedback: {
+    type: String,
+    required: true
+  },
+  rating: {
+    type: Number,
+    required: true
+  },
+  created_at: {
+    type: Date,
+    default: Date.now
+  }
 });
 
-module.exports = db;
+const Feedback = model("Feedback", feedbackSchema);
+export default Feedback;

@@ -1,13 +1,20 @@
-const express = require('express');
-const router = express.Router();
-const feedbackController = require('../controllers/feedbackController');
+import { Router } from "express"
+import {
+    getAllFeedbacks,
+    getFeedbackById,
+    createFeedback,
+    updateFeedback,
+    deleteFeedback
+} from '../controllers/feedbackController.js';
 
-router.get('/', feedbackController.getAllFeedbacks);
-router.get('/new', (req, res) => res.render('feedbackForm'));
-router.post('/', feedbackController.createFeedback);
-router.get('/:id', feedbackController.getAllFeedbackById);
-router.get('/:id/edit', (req, res) => res. render('feedbackEdit', { id: req.params.id}));
-router.post('/:id', feedbackController.updateFeedback);
-router.post('/:id/delete', feedbackController.deleteFeedback);
+const feedbackRoutes = new Router();
 
-module.exports = router;
+feedbackRoutes.get('/', getAllFeedbacks);
+feedbackRoutes.get('/new', (req, res) => res.render('feedbackForm'));
+feedbackRoutes.post('/', createFeedback);
+feedbackRoutes.get('/:id', getFeedbackById);
+feedbackRoutes.get('/:id/edit', (req, res) => res.render('feedbackEdit', { id: req.params.id }));
+feedbackRoutes.post('/:id', updateFeedback);
+feedbackRoutes.post('/:id/delete', deleteFeedback);
+
+export default feedbackRoutes;
