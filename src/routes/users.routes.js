@@ -6,21 +6,21 @@ import UsersPrehandlers from "../prehandlers/users.prehandlers.js";
 const userRoutes = new Router();
 
 //REST pattern
-userRoutes.get("/users/", UserController.index);
-userRoutes.get("/users/:id",
+userRoutes.get("/user/", UserController.index);
+userRoutes.get("/user/:id",
   UsersPrehandlers.userNotExists,
   UserController.show
 );
-userRoutes.post("/users/",
+userRoutes.post("/user/",
   UsersPrehandlers.bodyIsValid,
   UserController.store
 );
-userRoutes.put("/users/:id",
+userRoutes.put("/user/:id",
   UsersPrehandlers.userNotExists,
   UsersPrehandlers.bodyIsValid,
   UserController.update
 );
-userRoutes.delete("/users/:id",
+userRoutes.delete("/user/:id",
   UsersPrehandlers.userNotExists,
   UserController.delete
 );
