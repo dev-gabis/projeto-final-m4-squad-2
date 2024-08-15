@@ -1,57 +1,66 @@
-const db = require('../models/feedbackModel');
+import Feedback from '../models/feedbackModel.js';
 
-exports.getAllFeedbacks = (req, res) => {
-    db.all('SELECT * FROM Feedbacks', (err, rows) => {
-        if (err){
-            res.status(500).send("Erro ao buscar feedbacks");
-        } else {
-            res.render('feedbackList', {feedbacks: rows});
-        }
-    });
+
+export const getAllFeedbacks = async (req, res) => {
+    try {
+        const feedbacks = await Feedback.find();
+        res.render('feedbackList', { feedbacks });
+    } catch (err) {
+        res.status(500).send("Erro ao buscar feedbacks");
+    }
 };
 
-exports.getAllFeedbackById = (req, res) => {
-    const id = req.params.id;
-    db.get('SELECT * FROM Feedbacks WHERE id = ?', [id], (err, rows) => {
-        if (err) {
-            res.status(500).send("Erro ao buscar feedback");
+export const getFeedbackById = async (req, res) => {
+    try {
+        const feedback = await Feedback.findById(req.params.id);
+        if (feedback) {
+            res.render('feedbackDetail', { feedback });
         } else {
-            res.render('feedbackDetaill', { feedback: rows});
+            res.status(404).send("Feedback não encontrado");
         }
-    });
+    } catch (err) {
+        res.status(500).send("Erro ao buscar feedback");
+    }
 };
 
-exports.createFeedback = (req, res) => {
-    const { name, email, feedback, rating } = req.body;
-    db.run('INSERT INTO Feedbacks (name, email, feedback, rating)VALUES (?, ?, ?, ?)', [name, email, feedback, rating], (err) => {
-        if (err) {
-            res.status(500).send("Erro ao criar feedback");
+export const createFeedback = async (req, res) => {
+    try {
+        const { name, email, feedback, rating } = req.body;
+        const newFeedback = new Feedback({ name, email, feedback, rating });
+        await newFeedback.save();
+        res.redirect('/feedbacks');
+    } catch (err) {
+        res.status(500).send("Erro ao criar feedback");
+    }
+};
+
+export const updateFeedback = async (req, res) => {
+    try {
+        const { name, email, feedback, rating } = req.body;
+        const updatedFeedback = await Feedback.findByIdAndUpdate(
+            req.params.id,
+            { name, email, feedback, rating },
+            { new: true }
+        );
+        if (updatedFeedback) {
+            res.redirect('/feedbacks/' + req.params.id);
         } else {
+            res.status(404).send("Feedback não encontrado");
+        }
+    } catch (err) {
+        res.status(500).send("Erro ao atualizar feedback");
+    }
+};
+
+export const deleteFeedback = async (req, res) => {
+    try {
+        const deletedFeedback = await Feedback.findByIdAndDelete(req.params.id);
+        if (deletedFeedback) {
             res.redirect('/feedbacks');
-        }
-    });
-};
-
-exports.updateFeedback = (req, res) => {
-    const { id } = req.params;
-    const { name, email, feedback, rating } = req.body;
-    db.run('UPDATE Feedbacks SET name = ?, feedback = ?, rating = ? WERE id = ?', [name, email, feedback, rating, id], (err) => {
-        if (err) {
-            res.status(500).send("Erro ao atualizar feedback");
         } else {
-            res.redirect('/feedbacks/' + id);
-
+            res.status(404).send("Feedback não encontrado");
         }
-    });
-};
-
-exports.deleteFeedback = (req, res) => {
-    const id = req.params.id;
-    db.run('DELETE FROM Feedbacks WHERE id = ?', [id], (err) => {
-        if (err) {
-            res.status(500).send("Erro ao deletar feedback");
-        } else {
-            res.redirect('/feedbacks');
-        }
-    });
+    } catch (err) {
+        res.status(500).send("Erro ao deletar feedback");
+    }
 };
