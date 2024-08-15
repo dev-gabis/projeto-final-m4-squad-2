@@ -2,9 +2,8 @@ import Enterprise from "../models/enterprise.model.js";
 
 class EnterpriseController {
     async index(_, response) {
-        const enterprise = await Enterprise.findAll()
+        const enterprise = await Enterprise.find()
         response.json(enterprise)
-
     }
 
     async show(request, response) {
@@ -20,10 +19,11 @@ class EnterpriseController {
         response.json(newEnterprise)
     }
 
-    async update(response) {
+    async update({ body, params }, response) {
+        const { id } = params;
         const { name, cnpj, adress, email } = body;
         const data = { name, cnpj, adress, email }
-        const updateEnterprise = await Enterprise.findByIdAndUpdate(data)
+        const updateEnterprise = await Enterprise.findByIdAndUpdate(id, data, { new: true })
         response.json(updateEnterprise)
     }
 
