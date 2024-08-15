@@ -16,9 +16,8 @@ class ApplicationsPrehandlers {
     }
 
     async bodyIsValid({ body }, reply, next) {
-        const { userId, status, applicationDate } = body;
-
-        if (!userId || !status || !applicationDate) {
+        const { youngId, opportunityId } = body;
+        if (!youngId || !opportunityId) {
             return reply.status(400).json({ error: "Invalid application data" });
         }
 
@@ -26,7 +25,7 @@ class ApplicationsPrehandlers {
     }
 
     async userExists({ body }, reply, next) {
-        const user = await User.findById(body.userId);
+        const user = await User.findById(body.youngId);
 
         if (!user) {
             return reply.status(404).json({ error: "User not found" });
