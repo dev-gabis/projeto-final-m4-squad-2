@@ -2,13 +2,16 @@ import express from "express";
 import userRoutes from "./routes/users.routes.js";
 import * as dotenv from 'dotenv'
 import mongoose from "mongoose";
+import * as swaggerUi from 'swagger-ui-express'
+
 import opportunityRoutes from "./routes/opportunity.routes.js";
 import enterpriseRoutes from "./routes/enterprise.routes.js";
 import mentoringRoutes from "./routes/monitoring.routes.js";
 import applicationRoutes from "./routes/applications.routes.js"
 import feedbackRoutes from "./routes/feedback.routes.js";
-// import sequelize from "./database/config.js";
-import * as swaggerUi from 'swagger-ui-express'
+
+import corsConfig from "./config/cors.config.js";
+
 
 import { createRequire } from "module";
 const require = createRequire(import.meta.url);
@@ -19,6 +22,7 @@ const swaggerDocument = require("./swagger.json");
 
 const app = express();
 
+app.use(corsConfig);
 app.use(express.json());
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
