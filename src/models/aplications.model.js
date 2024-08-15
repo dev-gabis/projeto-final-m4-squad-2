@@ -3,12 +3,12 @@ import mongoose from 'mongoose';
 const { Schema } = mongoose;
 
 const applicationSchema = new Schema({
-  jovemId: {
+  youngId: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Jovem',
     required: true
   },
-  oportunidadeId: {
+  opportunityId: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Oportunidade',
     required: true
@@ -19,7 +19,7 @@ const applicationSchema = new Schema({
     default: 'pendente',
     required: true
   },
-  dataAplicacao: {
+  applicationDate: {
     type: Date,
     default: Date.now,
     required: true
