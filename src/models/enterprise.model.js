@@ -1,11 +1,9 @@
 import { model, Schema } from "mongoose"
 
 const enterpriseSchema = new Schema({
-
   name: {
     type: String,
     required: true
-
   },
   cnpj: {
     type: String,
@@ -19,8 +17,6 @@ const enterpriseSchema = new Schema({
     type: String,
     required: true
   },
-
-
 });
 
 const Enterprise = model("enterprise", enterpriseSchema);
