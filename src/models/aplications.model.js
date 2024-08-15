@@ -3,7 +3,7 @@ import mongoose from 'mongoose';
 const { Schema } = mongoose;
 
 const applicationSchema = new Schema({
-  youngId: {
+  userId: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Jovem',
     required: true
