@@ -1,8 +1,12 @@
 import { Router } from "express"
-import EnterpriseControllers from "../controllers/enterprise.controllers.js"
+import EnterpriseController from "../controllers/enterprise.controller.js";
 
-const enterpriseRoutes = new Router()
+const enterpriseRoutes = new Router();
 
-enterpriseRoutes.post("/enterprise", EnterpriseControllers.store)
+enterpriseRoutes.get("/oppotunity/", EnterpriseController.index);
+enterpriseRoutes.get("/oppotunity/:id", EnterpriseController.show);
+enterpriseRoutes.post("/oppotunity/", EnterpriseController.store);
+enterpriseRoutes.put("/oppotunity/:id", EnterpriseController.update);
+enterpriseRoutes.delete("/oppotunity/:id", EnterpriseController.delete);
 
-export default enterpriseRoutes
+export default enterpriseRoutes;
